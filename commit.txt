@@ -1,0 +1,29 @@
+select count(*) from issuecommit
+select count(*) from committable
+select author,COUNT(*)as commitnum from committable group by author order by commitnum desc
+select issueID,count(*) as commitnum,sum(addLines) as addline ,sum(deleteLines)as deleteline from committable where issueid is not null group by issueID order by issueID desc
+
+
+
+
+查询commit和代码变更：
+select count(commitID) as committotal,sum(addLines)as addliness, sum(deleteLines) as delliness,DATEPART (week,data) as 星期,year(data) as 年份
+from committable 
+group by DATEPART (week,data),year(data)
+order by year(data) ,DATEPART (week,data) asc
+查询commit和代码issue变更：
+select count(commitID) as committotal,sum(addLines)as addliness, sum(deleteLines) as delliness,DATEPART (week,data) as 星期,year(data) as 年份
+from committable 
+where issueID is not null 
+group by DATEPART (week,data),year(data)
+order by year(data) ,DATEPART (week,data) asc
+xxxxxxxxxxxxx
+select count(commitID) as committotal,sum(addLines)as addliness, sum(deleteLines) as delliness,DATEPART (week,data) as 星期,year(data) as 年份
+from committable 
+where issueID is null 
+group by DATEPART (week,data),year(data)
+order by year(data) ,DATEPART (week,data) asc
+
+
+查询人：
+select author,COUNT(*)as commitnum from committable group by author order by commitnum desc
